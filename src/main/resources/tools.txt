@@ -1,4 +1,5 @@
-Daily Weekday Weekend Holiday charge charge charge charge
-Ladder $1.99 Yes Yes No
-Chainsaw $1.49 Yes No Yes
-Jackhammer $2.99 Yes No No
+Tool Code   Tool Type   Brand
+CHNS    Chainsaw    Stihl
+LADW    Ladder      Werner
+JAKD    Jackhammer  DeWalt
+JAKR    Jackhammer  Ridgid
