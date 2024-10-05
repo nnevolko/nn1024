@@ -1,5 +1,8 @@
 package com.steeka;
 
+//TODO add logger
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ToolsRentalMain {
 
@@ -7,7 +10,14 @@ public class ToolsRentalMain {
     public static final String toolsFile = "tools.txt";
     public static final String toolsChargesFile = "toolscharges.txt";
 
+    private static final Logger logger = LoggerFactory.getLogger(ToolsRentalMain.class);
+
     public static void main(String[] args) {
+
+        logger.info("Application started.");
+        logger.debug("This is a debug message.");
+        logger.error("An error occurred.", new RuntimeException("Test exception"));
+
 
         //1. Load Tools
         //1.a create Tools Repository
