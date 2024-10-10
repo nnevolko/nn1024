@@ -8,7 +8,7 @@ public class ToolsChargeRegistry {
     private final static Map<String, ToolCharge> registry = new HashMap<>();
 
     public static void register(ToolCharge toolCharge){
-        registry.put(toolCharge.getToolName(), toolCharge);
+        registry.put(toolCharge.getToolType(), toolCharge);
     }
 
     public static ToolCharge get(String toolCode){

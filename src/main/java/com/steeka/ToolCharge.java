@@ -1,23 +1,19 @@
 package com.steeka;
-/*
 
-Might use a Builder Pattern here as the data is availble at once
-and that would be cleaner than using a multipel argument constructor
-
- */
 
 public class ToolCharge {
 
     private String toolCode;
-    private String toolName;
+    private String toolType;
     private double dailyCharge;
     private boolean hasWeekdayCharge;
     private boolean hasWeekendCharge;
     private boolean hasHolidayCharge;
 
-    public ToolCharge(){
+    public ToolCharge() {
 
     }
+
     public ToolCharge(String toolCode, double dailyCharge) {
         this.toolCode = toolCode;
         this.dailyCharge = dailyCharge;
@@ -34,12 +30,12 @@ public class ToolCharge {
         this.toolCode = toolCode;
     }
 
-    public String getToolName() {
-        return toolName;
+    public String getToolType() {
+        return toolType;
     }
 
-    public void setToolName(String toolName) {
-        this.toolName = toolName;
+    public void setToolType(String toolType) {
+        this.toolType = toolType;
     }
 
     public double getDailyCharge() {
@@ -76,56 +72,15 @@ public class ToolCharge {
 
     @Override
     public String toString() {
-        return "ToolCharge{" +
-                "toolCode='" + toolCode + '\'' +
-                ", toolName='" + toolName + '\'' +
-                ", dailyCharge=" + dailyCharge +
-                ", hasWeekdayCharge=" + hasWeekdayCharge +
-                ", hasWeekendCharge=" + hasWeekendCharge +
-                ", hasHolidayCharge=" + hasHolidayCharge +
-                '}';
+        final StringBuilder sb = new StringBuilder("ToolCharge{");
+        sb.append("toolCode='").append(toolCode).append('\'');
+        sb.append(", toolType='").append(toolType).append('\'');
+        sb.append(", dailyCharge=").append(dailyCharge);
+        sb.append(", hasWeekdayCharge=").append(hasWeekdayCharge);
+        sb.append(", hasWeekendCharge=").append(hasWeekendCharge);
+        sb.append(", hasHolidayCharge=").append(hasHolidayCharge);
+        sb.append('}');
+        return sb.toString();
     }
-
-    /*
-    private ToolCharge(ToolChargeBuilder builder) {
-        this.dailyCharge = builder.dailyCharge;
-        this.hasWeekdayCharge = builder.hasWeekdayCharge;
-        this.hasWeekendCharge = builder.hasWeekendCharge;
-        this.hasHolidayCharge = builder.hasHolidayCharge;
-
-    }
-
-    public static class ToolChargeBuilder {
-        private String toolCode;
-        private double dailyCharge;
-        private boolean hasWeekdayCharge;
-        private boolean hasWeekendCharge;
-        private boolean hasHolidayCharge;
-
-        public ToolChargeBuilder(String toolCode, double dailyCharge) {
-            this.toolCode = toolCode;
-            this.dailyCharge = dailyCharge;
-            hasWeekdayCharge = false;
-            hasWeekendCharge = false;
-            hasHolidayCharge = false;
-        }
-
-        public void setHasWeekdayCharge(boolean hasWeekdayCharge) {
-            this.hasWeekdayCharge = hasWeekdayCharge;
-        }
-
-        public void setHasWeekendCharge(boolean hasWeekendCharge) {
-            this.hasWeekendCharge = hasWeekendCharge;
-        }
-
-        public void setHasHolidayCharge(boolean hasHolidayCharge) {
-            this.hasHolidayCharge = hasHolidayCharge;
-        }
-
-        public ToolCharge build() {
-            return new ToolCharge(this);
-        }
-    }
-*/
 
 }

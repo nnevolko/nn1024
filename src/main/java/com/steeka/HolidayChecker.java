@@ -2,7 +2,6 @@ package com.steeka;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -43,44 +42,44 @@ public class HolidayChecker {
         return generateHolidaysForYearsBlock(years);
     }
 
-    private static Map<Integer, List<LocalDate>> generateHolidaysForYearsBlock(List<Integer> years) {
+    public static Map<Integer, List<LocalDate>> generateHolidaysForYearsBlock(List<Integer> years) {
         //Optimization: possibly refactor with streams
         //Also may have to take these calculations into a Utility Method
         Map<Integer, List<LocalDate>> yearHolidays = new HashMap<>();
         for (Integer year : years) {
             List<LocalDate> holidaysThisYear = new ArrayList<>();
-            calculateIndependenceDayHoliday(year, holidaysThisYear);
-            calculateLaborDayHoliday(year, holidaysThisYear);
+            holidaysThisYear.add(calculateIndependenceDayHoliday(year));
+            holidaysThisYear.add(calculateLaborDayHoliday(year));
             yearHolidays.put(year, holidaysThisYear);
         }
         return yearHolidays;
     }
 
 
-    private static void calculateLaborDayHoliday(Integer year, List<LocalDate> holidaysThisYear) {
+    public static LocalDate calculateLaborDayHoliday(Integer year) {
         //grab first day of september and derive Labor day holiday
         LocalDate septemberFirst = LocalDate.of(year, 9, 1);
-        LocalDate laborDay = septemberFirst;
-        if (septemberFirst.getDayOfWeek() == DayOfWeek.MONDAY){
-            laborDay= septemberFirst;
-        } else{
-            //calculate here
+        var laborDayHoliday = septemberFirst;
+        if (septemberFirst.getDayOfWeek() != DayOfWeek.MONDAY) {
+            //next week Monday would have been Sunday 7 + 1
+            int daysToAdjust = DayOfWeek.SUNDAY.getValue() + 1 - septemberFirst.getDayOfWeek().getValue(); // use enum values to figure out next Monday
+            laborDayHoliday = laborDayHoliday.plusDays(daysToAdjust);
         }
-        holidaysThisYear.add(laborDay);
+        return laborDayHoliday;
     }
 
-    private static void calculateIndependenceDayHoliday(Integer year, List<LocalDate> holidaysThisYear) {
-        LocalDate independenceDay = LocalDate.of(year, 07, 04);
-        switch (independenceDay.getDayOfWeek()) {
+    public static LocalDate calculateIndependenceDayHoliday(Integer year) {
+        LocalDate independenceDayHoliday = LocalDate.of(year, 07, 04);
+        switch (independenceDayHoliday.getDayOfWeek()) {
             case SATURDAY:
-                holidaysThisYear.add(independenceDay.minusDays(1));
+                independenceDayHoliday = independenceDayHoliday.minusDays(1);
                 break;
             case SUNDAY:
-                holidaysThisYear.add(independenceDay.plusDays(1));
+                independenceDayHoliday = independenceDayHoliday.plusDays(1);
                 break;
             default:
-                holidaysThisYear.add(independenceDay);
         }
+        return independenceDayHoliday;
     }
 
     public void check(LocalDate checkoutDate, int daysRented) {

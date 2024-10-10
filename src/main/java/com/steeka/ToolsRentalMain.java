@@ -51,6 +51,21 @@ public class ToolsRentalMain {
 
         //generate rental agreement.
 
+       // Test 1 Test 2 Test 3 Test 4 Test 5 Test 6
+       // Tool code JAKR LADW CHNS JAKD JAKR JAKR
+       // Checkout date 9/3/15 7/2/20 7/2/15 9/3/15 7/2/15 7/2/20
+       // Rental days 5 3 5 6 9 4
+       // Discount 101% 10% 25% 0% 0% 50%
+
+        Customer customer1 = new Customer("Nika Nevolko");
+        //RentalItem ri = new RentalItem("JAKR", "9/3/15", "5", "101%");
+        RentalItem ri = new RentalItem("JAKR", "10/11/24", "5", "20%");
+        RentalCart cart = new RentalCart();
+        cart.add(ri);
+        Checkout newCheckout = new Checkout(customer1, cart);
+        newCheckout.processCheckOut();
+        RentalAgreement agreement =newCheckout.generateRentalAgreement();
+        agreement.printRentalAgreement();
 
     }
 

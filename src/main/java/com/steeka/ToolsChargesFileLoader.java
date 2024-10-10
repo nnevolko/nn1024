@@ -1,6 +1,5 @@
 package com.steeka;
 
-import java.util.Arrays;
 import java.util.List;
 
 //TODO add exception handling for input data
@@ -27,7 +26,7 @@ public class ToolsChargesFileLoader implements FileLoader {
         // System.out.println(Arrays.toString(toolString));
 
         ToolCharge charges = new ToolCharge();
-        charges.setToolName(dataRow[0].trim());
+        charges.setToolType(dataRow[0].trim());
         //skip dollar sign, get substrig
         charges.setDailyCharge(Double.parseDouble(dataRow[1].trim().substring(1)));
         boolean hasWeekdayCharge = dataRow[2].trim().equalsIgnoreCase(YES);

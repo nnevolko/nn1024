@@ -2,8 +2,6 @@ package com.steeka;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ToolsChargesFileLoaderTest {
@@ -16,7 +14,7 @@ class ToolsChargesFileLoaderTest {
 
         String[] chargesRowData1 = {"Ladder", "$1.99", "Yes", "Yes", "No"};
         ToolCharge charge1 = tcfl.createToolChargeFromFileDataRow(chargesRowData1);
-        assertEquals("Ladder", charge1.getToolName());
+        assertEquals("Ladder", charge1.getToolType());
 
         String[] chargesRowData2 = {"Chainsaw", "$1.49", "Yes", "No", "Yes"};
         ToolCharge charge2 = tcfl.createToolChargeFromFileDataRow(chargesRowData2);
