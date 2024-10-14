@@ -16,7 +16,7 @@ public class RentalAgreement {
     }
 
 
-    public void printRentalAgreement() {
+    public void printRentalAgreement(ToolsRegistry toolsRegistry) {
         /*
          Tool code: LADW
          Tool type: Ladder
@@ -41,7 +41,7 @@ public class RentalAgreement {
 
         rentedTools.forEach(rentalItem -> {
             System.out.printf("%-20s %s\n", "Tool code:", rentalItem.getToolCode());
-            Tool tool = ToolsRegistry.getToolByCode(rentalItem.getToolCode());
+            Tool tool = toolsRegistry.get(rentalItem.getToolCode());
             System.out.printf("%-20s %s\n", "Tool type:", tool.getType());
             System.out.printf("%-20s %s\n", "Tool brand:", tool.getBrand());
             System.out.printf("%-20s %d\n", "Rental days:", rentalItem.getDaysRented());

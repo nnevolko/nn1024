@@ -3,23 +3,25 @@ package com.steeka;
 import java.util.List;
 
 //TODO add exception handling for input data
-public class ToolsChargesFileLoader implements FileLoader {
+public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry>{
 
     private final String YES = "Yes";
     private final String NO = "No";
 
-    public void processInputLines(List<String> inputLines) {
+    @Override
+    public ToolsChargeRegistry processInputLines(List<String> inputLines) {
+        ToolsChargeRegistry toolsChargeRegistry = new ToolsChargeRegistry();
         inputLines.stream()
                 .skip(1)
                 .forEach(
                         line -> {
                             String[] toolString = line.split("\\s+");
                             ToolCharge charges = createToolChargeFromFileDataRow(toolString);
-                            ToolsChargeRegistry.register(charges);
+                            toolsChargeRegistry.register(charges);
                         }
                 );
 
-
+        return toolsChargeRegistry;
     }
 
     public ToolCharge createToolChargeFromFileDataRow(String[] dataRow){

@@ -5,24 +5,29 @@ import java.util.Map;
 
 public class ToolsChargeRegistry {
 
-    private final static Map<String, ToolCharge> registry = new HashMap<>();
+    private Map<String, ToolCharge> charges = new HashMap<>();
 
-    public static void register(ToolCharge toolCharge){
-        registry.put(toolCharge.getToolType(), toolCharge);
+    public void register(ToolCharge toolCharge) {
+        charges.put(toolCharge.getToolType(), toolCharge);
     }
 
-    public static ToolCharge get(String toolCode){
-        return registry.get(toolCode);
+    public ToolCharge get(String toolCode) {
+        return charges.get(toolCode);
     }
 
-    public static boolean contains(String toolCode){
-        return registry.containsKey(toolCode);
-    }
-    public static void remove(String toolCode){
-        registry.remove(toolCode);
+    public boolean contains(String toolCode) {
+        return charges.containsKey(toolCode);
     }
 
-    public static void print(){
-        registry.entrySet().forEach(System.out::println);
+    public void remove(String toolCode) {
+        charges.remove(toolCode);
+    }
+
+    public Map<String, ToolCharge> getCharges() {
+        return charges;
+    }
+
+    public void print() {
+        charges.entrySet().forEach(System.out::println);
     }
 }

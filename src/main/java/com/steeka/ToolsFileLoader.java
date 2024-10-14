@@ -2,11 +2,12 @@ package com.steeka;
 
 import java.util.List;
 
-//TODO add exception handling for handing input data
-public class ToolsFileLoader implements FileLoader {
+public class ToolsFileLoader implements FileLoader<ToolsRegistry> {
 
-    public void processInputLines(List<String> inputLines) {
+    @Override
+    public ToolsRegistry processInputLines(List<String> inputLines) {
 
+        ToolsRegistry toolsRegistry = new ToolsRegistry();
         inputLines.stream()
                 .skip(1)
                 .forEach(
@@ -16,10 +17,11 @@ public class ToolsFileLoader implements FileLoader {
                             tool.setCode(toolString[0]);
                             tool.setType(toolString[1]);
                             tool.setBrand(toolString[2]);
-                            ToolsRegistry.register(tool);
+                            toolsRegistry.register(tool);
                         }
                 );
 
+        return toolsRegistry;
     }
 
 }

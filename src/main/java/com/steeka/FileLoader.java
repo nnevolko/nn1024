@@ -8,12 +8,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface FileLoader {
+public interface FileLoader<T> {
 
-    void processInputLines(List<String> inputLines);
+    abstract T processInputLines(List<String> inputLines);
 
     // load from file
-    default void loadFromFile(String fileName) {
+    default T loadFromFile(String fileName) {
 
         InputStream inputStream = ToolsRentalMain.class.getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
@@ -21,8 +21,9 @@ public interface FileLoader {
         }
 
         List<String> inputLines = processInputStream(inputStream);
-        processInputLines(inputLines);
+        T value = processInputLines(inputLines);
 
+        return value;
     }
 
     // load input stream into a string list

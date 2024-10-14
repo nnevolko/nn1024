@@ -7,7 +7,7 @@ public class Tool {
     private String brand;
     private String name;
 
-    private double cost;
+    private ToolCharge toolCharge;
 
     public String getCode() {
         return code;
@@ -41,12 +41,12 @@ public class Tool {
         this.name = name;
     }
 
-    public double getCost() {
-        return cost;
+    public void setToolCharge(ToolCharge toolCharge) {
+        this.toolCharge = toolCharge;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public ToolCharge getToolCharge() {
+        return toolCharge;
     }
 
     @Override
