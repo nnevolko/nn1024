@@ -1,5 +1,7 @@
 package com.steeka.processor;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
@@ -54,7 +56,7 @@ public class HolidayCalculator {
     }
 
 
-    public static LocalDate calculateLaborDayHoliday(Integer year) {
+    public static LocalDate calculateLaborDayHoliday(@NotNull Integer year) {
         //grab first day of september and derive Labor day holiday
         LocalDate septemberFirst = LocalDate.of(year, 9, 1);
         var laborDayHoliday = septemberFirst;
@@ -66,7 +68,7 @@ public class HolidayCalculator {
         return laborDayHoliday;
     }
 
-    public static LocalDate calculateIndependenceDayHoliday(Integer year) {
+    public static LocalDate calculateIndependenceDayHoliday(@NotNull Integer year) {
         LocalDate independenceDayHoliday = LocalDate.of(year, 07, 04);
         switch (independenceDayHoliday.getDayOfWeek()) {
             case SATURDAY:
@@ -80,7 +82,7 @@ public class HolidayCalculator {
         return independenceDayHoliday;
     }
 
-    public static List<LocalDate> getHolidaysForYear(int year) {
+    public static List<LocalDate> getHolidaysForYear(@NotNull int year) {
         return holidayCache.get(year);
     }
 }

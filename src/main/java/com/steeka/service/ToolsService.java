@@ -21,6 +21,7 @@ public class ToolsService {
 
     public ToolsRegistry getTools() {
 
+        logger.info("Entering ToolsService getTools()");
         //1. get tools from file
         //2. get charges from file
         //3. map name to code

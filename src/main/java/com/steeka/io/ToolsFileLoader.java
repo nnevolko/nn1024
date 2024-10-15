@@ -2,13 +2,14 @@ package com.steeka.io;
 
 import com.steeka.model.Tool;
 import com.steeka.model.ToolsRegistry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ToolsFileLoader implements FileLoader<ToolsRegistry> {
 
     @Override
-    public ToolsRegistry processInputLines(List<String> inputLines) {
+    public ToolsRegistry processInputLines(@NotNull List<String> inputLines) {
 
         ToolsRegistry toolsRegistry = new ToolsRegistry();
         inputLines.stream()

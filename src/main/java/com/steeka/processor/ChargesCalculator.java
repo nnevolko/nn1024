@@ -4,6 +4,7 @@ import com.steeka.exception.ToolsRentalException;
 import com.steeka.model.Charge;
 import com.steeka.model.RentalItem;
 import com.steeka.model.Tool;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ public class ChargesCalculator {
 
     private static final Logger logger = LoggerFactory.getLogger(ChargesCalculator.class);
 
-    public static void calculate(RentalItem rentalItem, Tool tool) {
+    public static void calculate(@NotNull RentalItem rentalItem, @NotNull Tool tool) {
 
         if (rentalItem.getDaysRented() < 1) {
             throw new ToolsRentalException("Tools can be rented for 1 or more days. Please adjust selected number of days.");
@@ -36,9 +37,6 @@ public class ChargesCalculator {
 
         logger.debug("Start rental charges day: " + returnDate);
         logger.debug("Return date: " + returnDate);
-        //TODO Check here ->>
-        // Charge days - Count of chargeable days, from day after checkout through and including due
-        //date, excluding “no charge” days as specified by the tool type.
 
         for (LocalDate date = startRentalDate; !date.isAfter(returnDate); date = date.plusDays(1)) {
             //check if weekend
@@ -50,7 +48,7 @@ public class ChargesCalculator {
                 newCharge.addOneToDaysCharged();
         }
 
-        logger.info("Total charged days: " + newCharge.getDaysCharged());
+        logger.info("Total days charged: " + newCharge.getDaysCharged());
 
         newCharge.setTotalBeforeDiscounts(tool.getToolCharge().getDailyCharge().multiply(BigDecimal.valueOf(newCharge.getDaysCharged())));
         logger.info("Pre-discount charge: " + newCharge.getTotalBeforeDiscounts());
@@ -65,17 +63,17 @@ public class ChargesCalculator {
         newCharge.setFinalTotal(newCharge.getTotalBeforeDiscounts().subtract(newCharge.getDiscountedAmount()));
         logger.info("Discount amount: " + newCharge.getFinalTotal());
 
-        System.out.println("Total charge is: "+ newCharge);
+        logger.info("Total charge is: "+ newCharge);
 
         rentalItem.setCharge(newCharge);
-        System.out.println("Rental item: "+ rentalItem);
+        logger.info("Rental item: "+ rentalItem);
     }
 
-    public static boolean isWeekend(LocalDate date) {
+    public static boolean isWeekend(@NotNull LocalDate date) {
         return date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY;
     }
 
-    public static boolean isHoliday(LocalDate date) {
+    public static boolean isHoliday(@NotNull LocalDate date) {
         List<LocalDate> holidays = HolidayCalculator.getHolidaysForYear(date.getYear());
         return holidays.stream()
                 .anyMatch(holiday -> holiday.isEqual(date));

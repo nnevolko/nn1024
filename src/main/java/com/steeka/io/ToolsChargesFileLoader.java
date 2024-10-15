@@ -2,6 +2,7 @@ package com.steeka.io;
 
 import com.steeka.model.ToolCharge;
 import com.steeka.model.ToolsChargeRegistry;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -16,7 +17,7 @@ public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry> {
     private final String DOLLAR_SIGN ="$"; //TODO customize for locale
 
     @Override
-    public ToolsChargeRegistry processInputLines(List<String> inputLines) {
+    public ToolsChargeRegistry processInputLines(@NotNull List<String> inputLines) {
         ToolsChargeRegistry toolsChargeRegistry = new ToolsChargeRegistry();
         inputLines.stream()
                 .skip(1)
@@ -31,7 +32,7 @@ public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry> {
         return toolsChargeRegistry;
     }
 
-    public ToolCharge createToolChargeFromFileDataRow(String[] dataRow) {
+    public ToolCharge createToolChargeFromFileDataRow(@NotNull String[] dataRow) {
 
         ToolCharge charges = new ToolCharge();
         charges.setToolType(dataRow[0].trim());

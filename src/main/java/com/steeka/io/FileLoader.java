@@ -1,6 +1,7 @@
 package com.steeka.io;
 
 import com.steeka.ToolsRentalMain;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public interface FileLoader<T> {
     abstract T processInputLines(List<String> inputLines);
 
     // load from file
-    default T loadFromFile(String fileName) {
+    default T loadFromFile(@NotNull String fileName) {
 
         InputStream inputStream = ToolsRentalMain.class.getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
@@ -29,7 +30,7 @@ public interface FileLoader<T> {
     }
 
     // load input stream into a string list
-    default List<String> processInputStream(InputStream is) {
+    default List<String> processInputStream(@NotNull InputStream is) {
         List<String> inputLines = new ArrayList<>();
         try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(streamReader)) {

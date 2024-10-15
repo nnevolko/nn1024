@@ -1,16 +1,13 @@
 package com.steeka;
 
 import com.steeka.exception.ToolsRentalArgumentException;
-import com.steeka.exception.ToolsRentalException;
 import com.steeka.model.*;
 import com.steeka.processor.ChargesCalculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,36 +19,26 @@ class ChargesCalculatorTest {
 
     @BeforeEach
     void setUp() {
-            Map<String, Tool> tools = Map.of(
-                    "CHNS", new Tool("CHNS", "Chainsaw", "Stihl"),
-                    "LADW", new Tool("LADW", "Ladder", "Werner"),
-                    "JAKD",new Tool("JAKD", "Jackhammer", "DeWalt"),
-                    "JAKR", new Tool("JAKR", "Jackhammer", "Ridgid"));
-            tools.entrySet().stream().forEach(
-                    toolEntry -> toolsRegistry.register(toolEntry.getValue())
-            );
+        Map<String, Tool> tools = Map.of(
+                "CHNS", new Tool("CHNS", "Chainsaw", "Stihl"),
+                "LADW", new Tool("LADW", "Ladder", "Werner"),
+                "JAKD", new Tool("JAKD", "Jackhammer", "DeWalt"),
+                "JAKR", new Tool("JAKR", "Jackhammer", "Ridgid"));
+        tools.entrySet().stream().forEach(
+                toolEntry -> toolsRegistry.register(toolEntry.getValue())
+        );
 
-            Map<String, ToolCharge> toolDailyAndExtraCharges = Map.of(
-                    "Ladder", new ToolCharge("Ladder", new BigDecimal("1.99"), true, true, false),
-                    "Chainsaw", new ToolCharge("Chainsaw", new BigDecimal("1.49"), true, false, true),
-                    "Jackhammer", new ToolCharge("Jackhammer", new BigDecimal("2.99"), true, false, false)
-            );
-            toolDailyAndExtraCharges.entrySet().stream().forEach(mapEntry ->
-                    toolsChargeRegistry.register(mapEntry.getValue()));
+        Map<String, ToolCharge> toolDailyAndExtraCharges = Map.of(
+                "Ladder", new ToolCharge("Ladder", new BigDecimal("1.99"), true, true, false),
+                "Chainsaw", new ToolCharge("Chainsaw", new BigDecimal("1.49"), true, false, true),
+                "Jackhammer", new ToolCharge("Jackhammer", new BigDecimal("2.99"), true, false, false)
+        );
+        toolDailyAndExtraCharges.entrySet().stream().forEach(mapEntry ->
+                toolsChargeRegistry.register(mapEntry.getValue()));
 
-        //associate tool daily charges with the tool
-        /*
-            tools.forEach((typeCode, toolToUpdate) ->{
-                toolDailyAndExtraCharges.entrySet().stream()
-                        .filter(chargeEntry -> chargeEntry.getValue().getToolType().equals(toolToUpdate.getType()))
-                        .findFirst()
-                        .ifPresent(chargeEntry -> toolToUpdate.setToolCharge(chargeEntry.getValue()));
-            });
-*/
-
-        toolsRegistry.getToolsRegistry().forEach((typeCode, toolToUpdate) ->{
+        toolsRegistry.getToolsRegistry().forEach((typeCode, toolToUpdate) -> {
             ToolCharge charge = toolsChargeRegistry.get(toolToUpdate.getType());
-            if(charge!=null){
+            if (charge != null) {
                 toolToUpdate.setToolCharge(charge);
             }
         });
@@ -62,7 +49,7 @@ class ChargesCalculatorTest {
     }
 
     @Test
-    public void calculateTest(){
+    public void calculateTest() {
 
         /*
         Test 1 Test 2 Test 3 Test 4 Test 5 Test 6
@@ -73,7 +60,7 @@ class ChargesCalculatorTest {
 
         // Test 1 ----------------------------------
         Exception exception1 = assertThrows(ToolsRentalArgumentException.class, () -> {
-            RentalItem rentedItem1= new RentalItem("JAKR", "9/3/15", "5", "101%");
+            RentalItem rentedItem1 = new RentalItem("JAKR", "9/3/15", "5", "101%");
             Tool jackhammer1 = toolsRegistry.get(rentedItem1.getToolCode());
             ChargesCalculator.calculate(rentedItem1, jackhammer1);
         });
@@ -85,16 +72,13 @@ class ChargesCalculatorTest {
         ChargesCalculator.calculate(rentedItem2, ladder1);
         assertNotNull(ladder1.getToolCharge());
 
-        //Total charge is: Charge{totalBeforeDiscounts=5.97, totalDiscount=0.00, daysCharged=3, finalTotal=5.97}
-       // Rental item: RentalItem{toolCode='LADW', checkoutDate=2020-07-02, discount=10, daysRented=3, charge=Charge{totalBeforeDiscounts=5.97, totalDiscount=0.00, daysCharged=3, finalTotal=5.97}}
-
         assertTrue(ladder1.getToolCharge().getDailyCharge().compareTo(new BigDecimal("1.99")) == 0);
         assertTrue(ladder1.getToolCharge().isHasWeekdayCharge());
         assertTrue(ladder1.getToolCharge().isHasWeekendCharge());
         assertTrue(rentedItem2.getCharge().getTotalBeforeDiscounts().compareTo(new BigDecimal("5.97")) == 0);
 
         assertTrue(new BigDecimal("0.597").compareTo(rentedItem2.getCharge().getDiscountedAmount()) == 0); //0.597)
-        assertEquals (rentedItem2.getCharge().getDaysCharged(), 3);
+        assertEquals(rentedItem2.getCharge().getDaysCharged(), 3);
         assertTrue(new BigDecimal("5.373").compareTo(rentedItem2.getCharge().getFinalTotal()) == 0);
 
         // Test 3 ----------------------------------
@@ -140,11 +124,11 @@ class ChargesCalculatorTest {
     }
 
     @Test
-    public void checkExceptions(){
+    public void checkExceptions() {
 
         // Test 1 ----------------------------------
         Exception exception1 = assertThrows(ToolsRentalArgumentException.class, () -> {
-            RentalItem rentedItem1= new RentalItem("JAKR", "9/3/15", "0", "20%");
+            RentalItem rentedItem1 = new RentalItem("JAKR", "9/3/15", "0", "20%");
             Tool jackhammer1 = toolsRegistry.get(rentedItem1.getToolCode());
             ChargesCalculator.calculate(rentedItem1, jackhammer1);
         });
@@ -152,7 +136,7 @@ class ChargesCalculatorTest {
 
         // Test 2 ----------------------------------
         Exception exception2 = assertThrows(ToolsRentalArgumentException.class, () -> {
-            RentalItem rentedItem2= new RentalItem("JAKR", "9/3/15", "3", "101%");
+            RentalItem rentedItem2 = new RentalItem("JAKR", "9/3/15", "3", "101%");
             Tool jackhammer2 = toolsRegistry.get(rentedItem2.getToolCode());
             ChargesCalculator.calculate(rentedItem2, jackhammer2);
         });
