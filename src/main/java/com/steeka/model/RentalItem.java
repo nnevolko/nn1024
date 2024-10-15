@@ -1,7 +1,10 @@
-package com.steeka;
+package com.steeka.model;
+
+import com.steeka.exception.ToolsRentalArgumentException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 /*
 Requirement:
 Tool code - See tool table above
@@ -23,20 +26,21 @@ public class RentalItem {
     private LocalDate checkoutDate;
     private int discount;
     private int daysRented;
+    Charge charge;
 
-    public RentalItem(String toolCode,  String checkoutDate, String daysRented, String discount) {
+    public RentalItem(String toolCode, String checkoutDate, String daysRented, String discount) {
         this.toolCode = toolCode.trim();
-        this.checkoutDate = LocalDate.parse(checkoutDate.trim(), inputDateFormatter);;
+        this.checkoutDate = LocalDate.parse(checkoutDate.trim(), inputDateFormatter);
         this.daysRented = Integer.parseInt(daysRented.trim());
         this.discount = Integer.parseInt(discount.replace("%", ""));
 
         //TODO check this. Whole numbers
-        if (this.discount>100) {
-            throw new IllegalArgumentException("Rental Discount cannot be greater than 100 percent. Please check with the Clerk");
+        if (this.discount > 100) {
+            throw new ToolsRentalArgumentException("Rental Discount cannot be greater than 100 percent. Please check with the Clerk");
         }
 
-        if (this.daysRented<1) {
-            throw new IllegalArgumentException("Tools can be rented for 1 or more days only. Please adjust it.");
+        if (this.daysRented <= 1) {
+            throw new ToolsRentalArgumentException("Tools can be rented for 1 or more days only. Please adjust it.");
         }
     }
 
@@ -70,5 +74,25 @@ public class RentalItem {
 
     public void setDaysRented(int daysRented) {
         this.daysRented = daysRented;
+    }
+
+    public Charge getCharge() {
+        return charge;
+    }
+
+    public void setCharge(Charge charge) {
+        this.charge = charge;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("RentalItem{");
+        sb.append("toolCode='").append(toolCode).append('\'');
+        sb.append(", checkoutDate=").append(checkoutDate);
+        sb.append(", discount=").append(discount);
+        sb.append(", daysRented=").append(daysRented);
+        sb.append(", charge=").append(charge);
+        sb.append('}');
+        return sb.toString();
     }
 }

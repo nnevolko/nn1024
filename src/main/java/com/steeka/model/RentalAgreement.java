@@ -1,4 +1,4 @@
-package com.steeka;
+package com.steeka.model;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -40,19 +40,27 @@ public class RentalAgreement {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
 
         rentedTools.forEach(rentalItem -> {
+            System.out.println("_______________________________________________________________________");
             System.out.printf("%-20s %s\n", "Tool code:", rentalItem.getToolCode());
             Tool tool = toolsRegistry.get(rentalItem.getToolCode());
             System.out.printf("%-20s %s\n", "Tool type:", tool.getType());
             System.out.printf("%-20s %s\n", "Tool brand:", tool.getBrand());
             System.out.printf("%-20s %d\n", "Rental days:", rentalItem.getDaysRented());
-            System.out.printf("%-20s %s\n", "Check out date:", formatDate(rentalItem.getCheckoutDate(), dateFormatter));
-            System.out.printf("%-20s %s\n", "Due date:", "formatDate(dueDate, dateFormatter)");
-            System.out.printf("%-20s %s\n", "Daily rental charge:", "Dailyrentalcharge");
-            System.out.printf("%-20s %s\n", "Pre-discount charge:", "formatCurrency(preDiscountCharge, currencyFormatter)");
+            System.out.printf("%-20s %s\n", "Check out date:",
+                    formatDate(rentalItem.getCheckoutDate(), dateFormatter));
+            //TODO decide to either recalculate or store the Due Date
+            System.out.printf("%-20s %s\n", "Due date:",
+                    formatDate(rentalItem.getCheckoutDate().plusDays(rentalItem.getDaysRented()), dateFormatter));
+            System.out.printf("%-20s %s\n", "Daily rental charge:",
+                                 formatCurrency(tool.getToolCharge().getDailyCharge(), currencyFormatter));
+            System.out.printf("%-20s %s\n", "Pre-discount charge:",
+                                 formatCurrency(rentalItem.getCharge().totalBeforeDiscounts, currencyFormatter));
             System.out.printf("%-20s %d%%\n", "Discount percent:", rentalItem.getDiscount());
-            System.out.printf("%-20s %s\n", "Discount amount:", "currencyFormatter.format(discountAmount)");
-            System.out.printf("%-20s %s\n", "Final charge:", "currencyFormatter.format(finalCharge)");
-
+            System.out.printf("%-20s %s\n", "Discount amount:",
+                                formatCurrency(rentalItem.getCharge().getTotalDiscount(), currencyFormatter));
+            System.out.printf("%-20s %s\n", "Final charge:",
+                              formatCurrency(rentalItem.getCharge().getFinalTotal(), currencyFormatter));
+            System.out.println("_______________________________________________________________________");
         });
 
     }

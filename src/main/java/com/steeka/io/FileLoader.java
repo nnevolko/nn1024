@@ -1,4 +1,6 @@
-package com.steeka;
+package com.steeka.io;
+
+import com.steeka.ToolsRentalMain;
 
 import java.io.BufferedReader;
 import java.io.IOException;

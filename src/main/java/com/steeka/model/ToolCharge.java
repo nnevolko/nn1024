@@ -1,4 +1,4 @@
-package com.steeka;
+package com.steeka.model;
 
 
 public class ToolCharge {

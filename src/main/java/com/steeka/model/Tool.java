@@ -1,4 +1,4 @@
-package com.steeka;
+package com.steeka.model;
 
 public class Tool {
 
@@ -51,10 +51,12 @@ public class Tool {
 
     @Override
     public String toString() {
-        return "Tool{" +
-                "code='" + code + '\'' +
-                ", type='" + type + '\'' +
-                ", brand='" + brand + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("Tool{");
+        sb.append("code='").append(code).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", brand='").append(brand).append('\'');
+        sb.append(", type='").append(type).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

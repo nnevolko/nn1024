@@ -1,21 +1,19 @@
-package com.steeka;
+package com.steeka.utility;
 
-import java.util.HashMap;
+import com.steeka.model.Tool;
+import com.steeka.model.ToolsRegistry;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ToolsNameToCodeMapping {
-    private  Map<String, String> toolNameToCodeMapper;
+public class ToolsNameToCodeMapper {
+    private Map<String, String> toolNameToCodeMapper;
 
-    ToolsNameToCodeMapping(ToolsRegistry tools){
+    public ToolsNameToCodeMapper(ToolsRegistry tools) {
         map(tools.getToolsRegistry());
     }
 
-    //TODO contact Dave for clarification
-    // There is duplicate data in the file for the "ladder"
-    // At this point skip the second line
-
-    public void map(Map<String, Tool> tools){
+    public void map(Map<String, Tool> tools) {
         toolNameToCodeMapper = tools.entrySet().stream()
                 .collect(Collectors.toMap(
                         entry -> entry.getValue().getName(),
@@ -24,11 +22,11 @@ public class ToolsNameToCodeMapping {
                 ));
     }
 
-    public Map<String, String> getMapper(){
+    public Map<String, String> getMapper() {
         return toolNameToCodeMapper;
     }
 
-    public String get(String name){
+    public String get(String name) {
         return toolNameToCodeMapper.get(name);
     }
 

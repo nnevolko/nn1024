@@ -1,4 +1,4 @@
-package com.steeka;
+package com.steeka.processor;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -19,9 +19,9 @@ import java.util.stream.IntStream;
 
 * */
 
-public class HolidayChecker {
+public class HolidayCalculator {
 
-    private static final int YEARS_TO_CHECK = 25;
+    private static final int YEARS_TO_CHECK = 5;
     public final static Map<Integer, List<LocalDate>> holidayCache;
 
     static {
@@ -82,10 +82,7 @@ public class HolidayChecker {
         return independenceDayHoliday;
     }
 
-    public void check(LocalDate checkoutDate, int daysRented) {
-        // Thougts
-        // consider precalculating holidays for the plus 50 and  minus 50 years
-        // that would work as cache
-
+    public static List<LocalDate> getHolidaysForYear(int year) {
+        return holidayCache.get(year);
     }
 }

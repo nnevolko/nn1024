@@ -1,4 +1,4 @@
-package com.steeka;
+package com.steeka.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +10,15 @@ public class RentalCart {
     public RentalCart() {
     }
 
-    public void add(RentalItem item){
+    public void add(RentalItem item) {
         rentedTools.add(item);
     }
-    public void remove(RentalItem item){
+
+    public void remove(RentalItem item) {
         rentedTools.remove(item);
     }
 
-    public void clear(){
+    public void clear() {
         rentedTools.clear();
     }
 

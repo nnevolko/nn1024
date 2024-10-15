@@ -1,4 +1,4 @@
-package com.steeka;
+package com.steeka.model;
 
 import java.util.HashMap;
 import java.util.Map;

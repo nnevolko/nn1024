@@ -1,5 +1,7 @@
 package com.steeka;
 
+import com.steeka.io.ToolsChargesFileLoader;
+import com.steeka.model.ToolCharge;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

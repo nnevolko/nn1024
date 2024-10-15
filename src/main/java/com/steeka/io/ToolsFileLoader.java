@@ -1,4 +1,7 @@
-package com.steeka;
+package com.steeka.io;
+
+import com.steeka.model.ToolsRegistry;
+import com.steeka.model.Tool;
 
 import java.util.List;
 

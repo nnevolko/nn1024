@@ -1,9 +1,12 @@
-package com.steeka;
+package com.steeka.io;
+
+import com.steeka.model.ToolsChargeRegistry;
+import com.steeka.model.ToolCharge;
 
 import java.util.List;
 
 //TODO add exception handling for input data
-public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry>{
+public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry> {
 
     private final String YES = "Yes";
     private final String NO = "No";
@@ -24,7 +27,7 @@ public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry>{
         return toolsChargeRegistry;
     }
 
-    public ToolCharge createToolChargeFromFileDataRow(String[] dataRow){
+    public ToolCharge createToolChargeFromFileDataRow(String[] dataRow) {
         // System.out.println(Arrays.toString(toolString));
 
         ToolCharge charges = new ToolCharge();

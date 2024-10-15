@@ -1,5 +1,6 @@
 package com.steeka;
 
+import com.steeka.processor.HolidayCalculator;
 import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
@@ -10,13 +11,13 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class HolidayCheckerTest {
+class HolidayCalculatorTest {
 
     @Test
     void generateHolidaysForYearsBlockTest() {
 
         List<Integer> yearsToGenerate = Arrays.asList(2020, 2021, 2022, 2023, 2024, 2025, 2026);
-        Map<Integer, List<LocalDate>> holidayMap = HolidayChecker.generateHolidaysForYearsBlock(yearsToGenerate);
+        Map<Integer, List<LocalDate>> holidayMap = HolidayCalculator.generateHolidaysForYearsBlock(yearsToGenerate);
         assertEquals(holidayMap.size(), yearsToGenerate.size());
 
         List<LocalDate> holidays2021 = holidayMap.get(2021);
@@ -30,26 +31,20 @@ class HolidayCheckerTest {
     @Test
     void calculateLaborDayHoliday() {
 
-        LocalDate laborDayHoliday = HolidayChecker.calculateLaborDayHoliday(2024);
+        LocalDate laborDayHoliday = HolidayCalculator.calculateLaborDayHoliday(2024);
         assertEquals(laborDayHoliday.getDayOfMonth(), 2);
     }
 
     @Test
     public void calculateIndependenceDayHolidayTest() {
 
-        LocalDate independenceDayHoliday1 = HolidayChecker.calculateIndependenceDayHoliday(2024);
+        LocalDate independenceDayHoliday1 = HolidayCalculator.calculateIndependenceDayHoliday(2024);
         assertEquals(independenceDayHoliday1.getDayOfWeek(), DayOfWeek.THURSDAY);
 
-        LocalDate independenceDayHoliday2 = HolidayChecker.calculateIndependenceDayHoliday(2021);
+        LocalDate independenceDayHoliday2 = HolidayCalculator.calculateIndependenceDayHoliday(2021);
         assertEquals(independenceDayHoliday2.getDayOfMonth(), 5);
         assertEquals(independenceDayHoliday2.getDayOfWeek(), DayOfWeek.MONDAY);
 
     }
 
-
-    @Test
-    public void checkTest() {
-
-
-    }
 }

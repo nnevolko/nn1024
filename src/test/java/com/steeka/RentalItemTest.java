@@ -1,5 +1,6 @@
 package com.steeka;
 
+import com.steeka.model.RentalItem;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

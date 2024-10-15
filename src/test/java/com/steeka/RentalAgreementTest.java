@@ -1,5 +1,6 @@
 package com.steeka;
 
+import com.steeka.model.RentalAgreement;
 import org.junit.jupiter.api.Test;
 
 import java.text.NumberFormat;

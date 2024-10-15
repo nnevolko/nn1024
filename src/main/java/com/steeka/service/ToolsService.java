@@ -1,32 +1,38 @@
-package com.steeka;
+package com.steeka.service;
 
-import java.util.HashMap;
-import java.util.Map;
-//service that will return a list of tools
-//this coudl be later refactored to call the database and etc
+import com.steeka.model.ToolsChargeRegistry;
+import com.steeka.io.ToolsFileLoader;
+import com.steeka.utility.ToolsNameToCodeMapper;
+import com.steeka.model.ToolsRegistry;
+import com.steeka.io.ToolsChargesFileLoader;
+import com.steeka.model.Tool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ToolsService {
 
-    //TODO refactor to properties file
     public static final String toolsFile = "tools.txt";
     public static final String toolsChargesFile = "toolscharges.txt";
 
-    public ToolsService(){
+    private static final Logger logger = LoggerFactory.getLogger(ToolsService.class);
+
+    public ToolsService() {
 
     }
 
-    public ToolsRegistry getTools(){
+    public ToolsRegistry getTools() {
 
         //1. get tools from file
         //2. get charges from file
         //3. map name to code
         //4. update tools with the tools charges
         ToolsFileLoader toolsLoader = new ToolsFileLoader();
-        ToolsRegistry toolsRegistry=  toolsLoader.loadFromFile(toolsFile);
+        ToolsRegistry toolsRegistry = toolsLoader.loadFromFile(toolsFile);
 
         ToolsChargesFileLoader toolsChargesLoader = new ToolsChargesFileLoader();
         ToolsChargeRegistry toolChargeRegistry = toolsChargesLoader.loadFromFile(toolsChargesFile);
 
-        ToolsNameToCodeMapping nameToCodeMapper = new ToolsNameToCodeMapping(toolsRegistry);
+        ToolsNameToCodeMapper nameToCodeMapper = new ToolsNameToCodeMapper(toolsRegistry);
 
         toolChargeRegistry.getCharges().forEach((name, charge) -> {
             String code = nameToCodeMapper.get(name);
@@ -38,6 +44,7 @@ public class ToolsService {
             }
         });
 
+        logger.info("Exiting ToolsService getTools()");
         return toolsRegistry;
     }
 }
