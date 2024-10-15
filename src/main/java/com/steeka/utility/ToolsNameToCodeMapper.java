@@ -1,6 +1,5 @@
 package com.steeka.utility;
 
-import com.steeka.model.Tool;
 import com.steeka.model.ToolsRegistry;
 
 import java.util.Map;

@@ -1,6 +1,5 @@
 package com.steeka;
 
-//TODO add logger
 
 import com.steeka.model.*;
 import com.steeka.service.Checkout;
@@ -15,9 +14,7 @@ public class ToolsRentalMain {
 
     public static void main(String[] args) {
 
-        logger.info("Application started.");
-        logger.debug("This is a debug message.");
-        logger.error("An error occurred.", new RuntimeException("Test exception"));
+        logger.info("Tools rental application started.");
 
         //1. Load Tools
         //1.a create Tools Repository
@@ -62,7 +59,7 @@ public class ToolsRentalMain {
 
     }
 
-    public static RentalCart populateSampleShoppingCart(Customer customer){
+    public static RentalCart populateSampleShoppingCart(Customer customer) {
         //RentalItem ri = new RentalItem("JAKR", "9/3/15", "5", "101%");
         RentalItem ri = new RentalItem("JAKR", "10/11/24", "5", "20%");
         RentalCart shoppingCart = new RentalCart();

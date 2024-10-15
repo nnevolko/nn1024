@@ -22,10 +22,16 @@ class RentalAgreementTest {
    @Test
    public void formatDateTest(){
        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+
        LocalDate date = LocalDate.of(2024, 10, 10);
        Optional<String> result = Optional.ofNullable(RentalAgreement.formatDate(date, formatter));
        assertTrue(result.isPresent());
-       assertEquals("10/10/2024", result.get());
+       assertEquals("10/10/24", result.get());
+
+       LocalDate date2 = LocalDate.of(2024, 9, 7);
+       Optional<String> result2 = Optional.ofNullable(RentalAgreement.formatDate(date2, formatter));
+       assertTrue(result.isPresent());
+       assertEquals("09/07/24", result2.get());
    }
 
     @Test

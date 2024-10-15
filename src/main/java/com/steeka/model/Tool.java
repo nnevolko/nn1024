@@ -1,5 +1,7 @@
 package com.steeka.model;
 
+import java.util.Objects;
+
 public class Tool {
 
     private String code;
@@ -8,12 +10,15 @@ public class Tool {
 
     private ToolCharge toolCharge;
 
-    public Tool(){}
-    public Tool(String code, String type, String brand){
+    public Tool() {
+    }
+
+    public Tool(String code, String type, String brand) {
         this.code = code;
         this.type = type;
-        this.brand= brand;
+        this.brand = brand;
     }
+
     public String getCode() {
         return code;
     }
@@ -39,7 +44,7 @@ public class Tool {
     }
 
     public void setToolCharge(ToolCharge toolCharge) {
-        this.toolCharge = toolCharge;
+        this.toolCharge = new ToolCharge(toolCharge);
     }
 
     public ToolCharge getToolCharge() {
@@ -47,11 +52,25 @@ public class Tool {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tool tool = (Tool) o;
+        return Objects.equals(code, tool.code) && Objects.equals(type, tool.type) && Objects.equals(brand, tool.brand) && Objects.equals(toolCharge, tool.toolCharge);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, type, brand, toolCharge);
+    }
+
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Tool{");
         sb.append("code='").append(code).append('\'');
-        sb.append(", brand='").append(brand).append('\'');
         sb.append(", type='").append(type).append('\'');
+        sb.append(", brand='").append(brand).append('\'');
+        sb.append(", toolCharge=").append(toolCharge);
         sb.append('}');
         return sb.toString();
     }

@@ -17,50 +17,37 @@ public class RentalAgreement {
 
 
     public void printRentalAgreement(ToolsRegistry toolsRegistry) {
-        /*
-         Tool code: LADW
-         Tool type: Ladder
-         Tool brand:
-         Rental days:
-         Check out date:
-         Due date:
-         Daily rental chrae:
-         Pre-discount charge
-         Discount percent:
-         Discount amount:
-         Final charge: $9.99
 
-         formatting as follows:
-         Date mm/dd/yy
-         Currency: $9.999.99
-         Percent 99%
-         */
-        //TODO take these settings to a separate file so they could be easily changed or modified
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
 
         rentedTools.forEach(rentalItem -> {
-            System.out.println("_______________________________________________________________________");
-            System.out.printf("%-20s %s\n", "Tool code:", rentalItem.getToolCode());
+
+            StringBuilder receipt = new StringBuilder();
+
+            receipt.append("_______________________________________________________________________\n");
+            receipt.append(String.format("%-20s %s\n", "Tool code:", rentalItem.getToolCode()));
             Tool tool = toolsRegistry.get(rentalItem.getToolCode());
-            System.out.printf("%-20s %s\n", "Tool type:", tool.getType());
-            System.out.printf("%-20s %s\n", "Tool brand:", tool.getBrand());
-            System.out.printf("%-20s %d\n", "Rental days:", rentalItem.getDaysRented());
-            System.out.printf("%-20s %s\n", "Check out date:",
-                    formatDate(rentalItem.getCheckoutDate(), dateFormatter));
+            receipt.append(String.format("%-20s %s\n", "Tool type:", tool.getType()));
+            receipt.append(String.format("%-20s %s\n", "Tool brand:", tool.getBrand()));
+            receipt.append(String.format("%-20s %d\n", "Rental days:", rentalItem.getDaysRented()));
+            receipt.append(String.format("%-20s %s\n", "Check out date:",
+                    formatDate(rentalItem.getCheckoutDate(), dateFormatter)));
             //TODO decide to either recalculate or store the Due Date
-            System.out.printf("%-20s %s\n", "Due date:",
-                    formatDate(rentalItem.getCheckoutDate().plusDays(rentalItem.getDaysRented()), dateFormatter));
-            System.out.printf("%-20s %s\n", "Daily rental charge:",
-                                 formatCurrency(tool.getToolCharge().getDailyCharge(), currencyFormatter));
-            System.out.printf("%-20s %s\n", "Pre-discount charge:",
-                                 formatCurrency(rentalItem.getCharge().totalBeforeDiscounts, currencyFormatter));
-            System.out.printf("%-20s %d%%\n", "Discount percent:", rentalItem.getDiscount());
-            System.out.printf("%-20s %s\n", "Discount amount:",
-                                formatCurrency(rentalItem.getCharge().getTotalDiscount(), currencyFormatter));
-            System.out.printf("%-20s %s\n", "Final charge:",
-                              formatCurrency(rentalItem.getCharge().getFinalTotal(), currencyFormatter));
-            System.out.println("_______________________________________________________________________");
+            receipt.append(String.format("%-20s %s\n", "Due date:",
+                    formatDate(rentalItem.getCheckoutDate().plusDays(rentalItem.getDaysRented()), dateFormatter)));
+            receipt.append(String.format("%-20s %s\n", "Daily rental charge:",
+                    formatCurrency(tool.getToolCharge().getDailyCharge(), currencyFormatter)));
+            receipt.append(String.format("%-20s %s\n", "Pre-discount charge:",
+                    formatCurrency(rentalItem.getCharge().totalBeforeDiscounts, currencyFormatter)));
+            receipt.append(String.format("%-20s %d%%\n", "Discount percent:", rentalItem.getDiscount()));
+            receipt.append(String.format("%-20s %s\n", "Discount amount:",
+                    formatCurrency(rentalItem.getCharge().getTotalDiscount(), currencyFormatter)));
+            receipt.append(String.format("%-20s %s\n", "Final charge:",
+                    formatCurrency(rentalItem.getCharge().getFinalTotal(), currencyFormatter)));
+            receipt.append("_______________________________________________________________________");
+
+            System.out.println(receipt);
         });
 
     }

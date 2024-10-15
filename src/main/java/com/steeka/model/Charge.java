@@ -1,5 +1,7 @@
 package com.steeka.model;
 
+import java.util.Objects;
+
 public class Charge {
 
     double totalBeforeDiscounts;
@@ -45,6 +47,19 @@ public class Charge {
 
     public void setTotalBeforeDiscounts(double totalBeforeDiscounts) {
         this.totalBeforeDiscounts = totalBeforeDiscounts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Charge charge = (Charge) o;
+        return Double.compare(totalBeforeDiscounts, charge.totalBeforeDiscounts) == 0 && Double.compare(totalDiscount, charge.totalDiscount) == 0 && daysCharged == charge.daysCharged && Double.compare(finalTotal, charge.finalTotal) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(totalBeforeDiscounts, totalDiscount, daysCharged, finalTotal);
     }
 
     @Override

@@ -1,11 +1,10 @@
 package com.steeka.service;
 
-import com.steeka.model.ToolsChargeRegistry;
-import com.steeka.io.ToolsFileLoader;
-import com.steeka.utility.ToolsNameToCodeMapper;
-import com.steeka.model.ToolsRegistry;
 import com.steeka.io.ToolsChargesFileLoader;
-import com.steeka.model.Tool;
+import com.steeka.io.ToolsFileLoader;
+import com.steeka.model.ToolCharge;
+import com.steeka.model.ToolsChargeRegistry;
+import com.steeka.model.ToolsRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +29,16 @@ public class ToolsService {
         ToolsRegistry toolsRegistry = toolsLoader.loadFromFile(toolsFile);
 
         ToolsChargesFileLoader toolsChargesLoader = new ToolsChargesFileLoader();
-        ToolsChargeRegistry toolChargeRegistry = toolsChargesLoader.loadFromFile(toolsChargesFile);
+        ToolsChargeRegistry toolsChargeRegistry = toolsChargesLoader.loadFromFile(toolsChargesFile);
 
-        ToolsNameToCodeMapper nameToCodeMapper = new ToolsNameToCodeMapper(toolsRegistry);
+        toolsRegistry.getToolsRegistry().forEach((typeCode, toolToUpdate) -> {
+            ToolCharge charge = toolsChargeRegistry.get(toolToUpdate.getType());
+            if (charge != null) {
+                toolToUpdate.setToolCharge(charge);
+            }
+        });
+
+        /*ToolsNameToCodeMapper nameToCodeMapper = new ToolsNameToCodeMapper(toolsRegistry);
 
         toolChargeRegistry.getCharges().forEach((name, charge) -> {
             String code = nameToCodeMapper.get(name);
@@ -42,7 +48,7 @@ public class ToolsService {
                     tool.setToolCharge(charge);
                 }
             }
-        });
+        });*/
 
         logger.info("Exiting ToolsService getTools()");
         return toolsRegistry;

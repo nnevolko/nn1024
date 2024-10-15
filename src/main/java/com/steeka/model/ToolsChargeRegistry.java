@@ -30,4 +30,12 @@ public class ToolsChargeRegistry {
     public void print() {
         charges.entrySet().forEach(System.out::println);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ToolsChargeRegistry{");
+        sb.append("charges=").append(charges);
+        sb.append('}');
+        return sb.toString();
+    }
 }

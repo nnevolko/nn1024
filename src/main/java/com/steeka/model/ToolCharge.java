@@ -1,9 +1,10 @@
 package com.steeka.model;
 
 
+import java.util.Objects;
+
 public class ToolCharge {
 
-    private String toolCode;
     private String toolType;
     private double dailyCharge;
     private boolean hasWeekdayCharge;
@@ -11,24 +12,28 @@ public class ToolCharge {
     private boolean hasHolidayCharge;
 
     public ToolCharge() {
-
+        this.hasWeekdayCharge = false;
+        this.hasWeekendCharge = false;
+        this.hasHolidayCharge = false;
     }
 
-    public ToolCharge(String toolCode, double dailyCharge) {
-        this.toolCode = toolCode;
+    public ToolCharge(String toolType, double dailyCharge, boolean hasWeekdayCharge, boolean hasWeekendCharge, boolean hasHolidayCharge) {
+        this.toolType = toolType;
         this.dailyCharge = dailyCharge;
-        hasWeekdayCharge = false;
-        hasWeekendCharge = false;
-        hasHolidayCharge = false;
+        this.hasWeekdayCharge = hasWeekdayCharge;
+        this.hasWeekendCharge = hasWeekendCharge;
+        this.hasHolidayCharge = hasHolidayCharge;
     }
 
-    public String getToolCode() {
-        return toolCode;
+    public ToolCharge(ToolCharge charge) {
+        super();
+        this.toolType = charge.getToolType();
+        this.dailyCharge = charge.getDailyCharge();
+        this.hasWeekdayCharge = charge.isHasWeekdayCharge();
+        this.hasWeekendCharge = charge.isHasWeekendCharge();
+        this.hasHolidayCharge = charge.isHasHolidayCharge();
     }
 
-    public void setToolCode(String toolCode) {
-        this.toolCode = toolCode;
-    }
 
     public String getToolType() {
         return toolType;
@@ -71,10 +76,22 @@ public class ToolCharge {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ToolCharge that = (ToolCharge) o;
+        return Double.compare(dailyCharge, that.dailyCharge) == 0 && hasWeekdayCharge == that.hasWeekdayCharge && hasWeekendCharge == that.hasWeekendCharge && hasHolidayCharge == that.hasHolidayCharge && Objects.equals(toolType, that.toolType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(toolType, dailyCharge, hasWeekdayCharge, hasWeekendCharge, hasHolidayCharge);
+    }
+
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ToolCharge{");
-        sb.append("toolCode='").append(toolCode).append('\'');
-        sb.append(", toolType='").append(toolType).append('\'');
+        sb.append("toolType='").append(toolType).append('\'');
         sb.append(", dailyCharge=").append(dailyCharge);
         sb.append(", hasWeekdayCharge=").append(hasWeekdayCharge);
         sb.append(", hasWeekendCharge=").append(hasWeekendCharge);
@@ -82,5 +99,4 @@ public class ToolCharge {
         sb.append('}');
         return sb.toString();
     }
-
 }

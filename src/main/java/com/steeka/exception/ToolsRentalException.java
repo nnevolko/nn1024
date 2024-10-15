@@ -1,6 +1,6 @@
 package com.steeka.exception;
 
-public class ToolsRentalException  extends RuntimeException{
+public class ToolsRentalException extends RuntimeException {
 
     public ToolsRentalException(String message) {
         super(message);

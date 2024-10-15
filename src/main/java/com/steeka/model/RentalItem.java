@@ -35,12 +35,12 @@ public class RentalItem {
         this.discount = Integer.parseInt(discount.replace("%", ""));
 
         //TODO check this. Whole numbers
-        if (this.discount > 100) {
-            throw new ToolsRentalArgumentException("Rental Discount cannot be greater than 100 percent. Please check with the Clerk");
+        if (this.discount < 0 || this.discount > 100) {
+            throw new ToolsRentalArgumentException("Rental discount cannot be greater than 100%. Please check with the Clerk.");
         }
 
-        if (this.daysRented <= 1) {
-            throw new ToolsRentalArgumentException("Tools can be rented for 1 or more days only. Please adjust it.");
+        if (this.daysRented < 1) {
+            throw new ToolsRentalArgumentException("Tools can be rented for 1 or more days. Please adjust selected number of days.");
         }
     }
 

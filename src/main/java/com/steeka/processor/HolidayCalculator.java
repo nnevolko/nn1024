@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
 
 public class HolidayCalculator {
 
-    private static final int YEARS_TO_CHECK = 5;
+    private static final int YEARS_TO_CHECK = 10;
     public final static Map<Integer, List<LocalDate>> holidayCache;
 
     static {
@@ -33,7 +33,6 @@ public class HolidayCalculator {
         LocalDate today = LocalDate.now();
         int currentYear = today.getYear();
 
-        // if the arguments of the range are primitive and what we need is the class than we need to use
         List<Integer> years =
                 IntStream.range(currentYear - YEARS_TO_CHECK, currentYear + YEARS_TO_CHECK)
                         .boxed()
@@ -43,8 +42,7 @@ public class HolidayCalculator {
     }
 
     public static Map<Integer, List<LocalDate>> generateHolidaysForYearsBlock(List<Integer> years) {
-        //Optimization: possibly refactor with streams
-        //Also may have to take these calculations into a Utility Method
+        //TODO: refactor to a utility class
         Map<Integer, List<LocalDate>> yearHolidays = new HashMap<>();
         for (Integer year : years) {
             List<LocalDate> holidaysThisYear = new ArrayList<>();

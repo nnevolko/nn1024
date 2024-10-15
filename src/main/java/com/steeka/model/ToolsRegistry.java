@@ -11,7 +11,6 @@ public class ToolsRegistry {
 
     public void register(Tool tool) {
         toolsRegistry.put(tool.getCode(), tool);
-        //toolsNameToCode.put(tool.getName(), tool.getCode());
     }
 
     public Tool get(String toolCode) {
@@ -21,9 +20,6 @@ public class ToolsRegistry {
     public Tool getToolByCode(String toolCode) {
         return toolsRegistry.get(toolCode);
     }
-
-
-
 
     public boolean contains(String toolCode) {
         return toolsRegistry.containsKey(toolCode);

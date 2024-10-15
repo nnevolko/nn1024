@@ -23,18 +23,23 @@ public class ChargesCalculator {
 
     public static void calculate(RentalItem rentalItem, Tool tool) {
 
-        if (rentalItem.getDaysRented() <= 1) {
-            throw new ToolsRentalException("Rental must be for 1 or more days.");
+        if (rentalItem.getDaysRented() < 1) {
+            throw new ToolsRentalException("Tools can be rented for 1 or more days. Please adjust selected number of days.");
+        }
+        if (rentalItem.getDiscount() < 0 || rentalItem.getDiscount() > 100) {
+            throw new ToolsRentalException("Rental discount cannot be greater than 100%. Please check with the Clerk.");
         }
         Charge newCharge = new Charge();
-
-        LocalDate checkoutDate = rentalItem.getCheckoutDate();
+        LocalDate startRentalDate = rentalItem.getCheckoutDate().plusDays(1);
         LocalDate returnDate = rentalItem.getCheckoutDate().plusDays(rentalItem.getDaysRented());
 
+        logger.debug("Start rental charges day: " + returnDate);
+        logger.debug("Return date: " + returnDate);
         //TODO Check here ->>
         // Charge days - Count of chargeable days, from day after checkout through and including due
         //date, excluding “no charge” days as specified by the tool type.
-        for (LocalDate date = checkoutDate.plusDays(1); date.isBefore(returnDate); date.plusDays(1)) {
+
+        for (LocalDate date = startRentalDate; !date.isAfter(returnDate); date = date.plusDays(1)) {
             //check if weekend
             if (isWeekend(date) && tool.getToolCharge().isHasWeekendCharge()) {
                 newCharge.addOneToDaysCharged();
@@ -56,7 +61,10 @@ public class ChargesCalculator {
         newCharge.setFinalTotal(newCharge.getTotalBeforeDiscounts() - newCharge.getTotalDiscount());
         logger.info("Discount amount: " + newCharge.getFinalTotal());
 
+        System.out.println("Total charge is: "+ newCharge);
+
         rentalItem.setCharge(newCharge);
+        System.out.println("Rental item: "+ rentalItem);
     }
 
     public static boolean isWeekend(LocalDate date) {

@@ -16,7 +16,7 @@ class HolidayCalculatorTest {
     @Test
     void generateHolidaysForYearsBlockTest() {
 
-        List<Integer> yearsToGenerate = Arrays.asList(2020, 2021, 2022, 2023, 2024, 2025, 2026);
+        List<Integer> yearsToGenerate = Arrays.asList(2015, 2016,2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026);
         Map<Integer, List<LocalDate>> holidayMap = HolidayCalculator.generateHolidaysForYearsBlock(yearsToGenerate);
         assertEquals(holidayMap.size(), yearsToGenerate.size());
 
