@@ -3,13 +3,17 @@ package com.steeka.io;
 import com.steeka.model.ToolCharge;
 import com.steeka.model.ToolsChargeRegistry;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 //TODO add exception handling for input data
 public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry> {
 
     private final String YES = "Yes";
     private final String NO = "No";
+    private final String DOLLAR_SIGN ="$"; //TODO customize for locale
 
     @Override
     public ToolsChargeRegistry processInputLines(List<String> inputLines) {
@@ -28,12 +32,13 @@ public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry> {
     }
 
     public ToolCharge createToolChargeFromFileDataRow(String[] dataRow) {
-        // System.out.println(Arrays.toString(toolString));
 
         ToolCharge charges = new ToolCharge();
         charges.setToolType(dataRow[0].trim());
-        //skip dollar sign, get substrig
-        charges.setDailyCharge(Double.parseDouble(dataRow[1].trim().substring(1)));
+        //use currency formatter to load amount wiht the currency indicator
+        System.out.println("Value is: " + dataRow[1].trim().substring(1));
+
+        charges.setDailyCharge(new BigDecimal(dataRow[1].trim().replace(DOLLAR_SIGN, "")));
         boolean hasWeekdayCharge = dataRow[2].trim().equalsIgnoreCase(YES);
         boolean hasWeekendCharge = dataRow[3].trim().equalsIgnoreCase(YES);
         boolean hasHolidayCharge = dataRow[4].trim().equalsIgnoreCase(YES);

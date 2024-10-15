@@ -38,18 +38,6 @@ public class ToolsService {
             }
         });
 
-        /*ToolsNameToCodeMapper nameToCodeMapper = new ToolsNameToCodeMapper(toolsRegistry);
-
-        toolChargeRegistry.getCharges().forEach((name, charge) -> {
-            String code = nameToCodeMapper.get(name);
-            if (code != null) {
-                Tool tool = toolsRegistry.get(code);
-                if (tool != null) {
-                    tool.setToolCharge(charge);
-                }
-            }
-        });*/
-
         logger.info("Exiting ToolsService getTools()");
         return toolsRegistry;
     }

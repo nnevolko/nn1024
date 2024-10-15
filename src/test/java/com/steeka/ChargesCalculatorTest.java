@@ -7,6 +7,8 @@ import com.steeka.processor.ChargesCalculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +32,9 @@ class ChargesCalculatorTest {
             );
 
             Map<String, ToolCharge> toolDailyAndExtraCharges = Map.of(
-                    "Ladder", new ToolCharge("Ladder", 1.99, true, true, false),
-                    "Chainsaw", new ToolCharge("Chainsaw", 1.49, true, false, true),
-                    "Jackhammer", new ToolCharge("Jackhammer", 2.99, true, false, false)
+                    "Ladder", new ToolCharge("Ladder", new BigDecimal("1.99"), true, true, false),
+                    "Chainsaw", new ToolCharge("Chainsaw", new BigDecimal("1.49"), true, false, true),
+                    "Jackhammer", new ToolCharge("Jackhammer", new BigDecimal("2.99"), true, false, false)
             );
             toolDailyAndExtraCharges.entrySet().stream().forEach(mapEntry ->
                     toolsChargeRegistry.register(mapEntry.getValue()));
@@ -83,16 +85,17 @@ class ChargesCalculatorTest {
         ChargesCalculator.calculate(rentedItem2, ladder1);
         assertNotNull(ladder1.getToolCharge());
 
-        assertTrue(Double.compare(ladder1.getToolCharge().getDailyCharge(), 1.99) == 0);
+        //Total charge is: Charge{totalBeforeDiscounts=5.97, totalDiscount=0.00, daysCharged=3, finalTotal=5.97}
+       // Rental item: RentalItem{toolCode='LADW', checkoutDate=2020-07-02, discount=10, daysRented=3, charge=Charge{totalBeforeDiscounts=5.97, totalDiscount=0.00, daysCharged=3, finalTotal=5.97}}
+
+        assertTrue(ladder1.getToolCharge().getDailyCharge().compareTo(new BigDecimal("1.99")) == 0);
         assertTrue(ladder1.getToolCharge().isHasWeekdayCharge());
         assertTrue(ladder1.getToolCharge().isHasWeekendCharge());
-        assertTrue(Double.compare(rentedItem2.getCharge().getTotalBeforeDiscounts(), 5.97) == 0);
-        assertTrue(Double.compare(rentedItem2.getCharge().getTotalDiscount(), 0.597) == 0);
-        assertEquals (rentedItem2.getCharge().getDaysCharged(), 3);
+        assertTrue(rentedItem2.getCharge().getTotalBeforeDiscounts().compareTo(new BigDecimal("5.97")) == 0);
 
-        double expected = 5.37299;
-        double delta = 0.00001;
-        assertEquals(expected, rentedItem2.getCharge().getFinalTotal(), delta);
+        assertTrue(new BigDecimal("0.597").compareTo(rentedItem2.getCharge().getDiscountedAmount()) == 0); //0.597)
+        assertEquals (rentedItem2.getCharge().getDaysCharged(), 3);
+        assertTrue(new BigDecimal("5.373").compareTo(rentedItem2.getCharge().getFinalTotal()) == 0);
 
         // Test 3 ----------------------------------
         RentalItem rentedItem3 = new RentalItem("CHNS", "7/2/15", "5", "25%");
@@ -100,7 +103,7 @@ class ChargesCalculatorTest {
         ChargesCalculator.calculate(rentedItem3, chainsaw1);
         assertNotNull(chainsaw1.getToolCharge());
 
-        assertTrue(Double.compare(chainsaw1.getToolCharge().getDailyCharge(), 1.49) == 0);
+        assertTrue(chainsaw1.getToolCharge().getDailyCharge().compareTo(new BigDecimal("1.49")) == 0);
         assertTrue(chainsaw1.getToolCharge().isHasWeekdayCharge());
         assertFalse(chainsaw1.getToolCharge().isHasWeekendCharge());
 
@@ -110,7 +113,7 @@ class ChargesCalculatorTest {
         ChargesCalculator.calculate(rentedItem4, jackhammer2);
         assertNotNull(jackhammer2.getToolCharge());
 
-        assertTrue(Double.compare(jackhammer2.getToolCharge().getDailyCharge(), 2.99) == 0);
+        assertTrue(jackhammer2.getToolCharge().getDailyCharge().compareTo(new BigDecimal("2.99")) == 0);
         assertTrue(jackhammer2.getToolCharge().isHasWeekdayCharge());
         assertFalse(jackhammer2.getToolCharge().isHasWeekendCharge());
 
@@ -120,7 +123,7 @@ class ChargesCalculatorTest {
         ChargesCalculator.calculate(rentedItem5, jackhammer3);
         assertNotNull(jackhammer3.getToolCharge());
 
-        assertTrue(Double.compare(jackhammer3.getToolCharge().getDailyCharge(), 2.99) == 0);
+        assertTrue(jackhammer3.getToolCharge().getDailyCharge().compareTo(new BigDecimal("2.99")) == 0);
         assertTrue(jackhammer3.getToolCharge().isHasWeekdayCharge());
         assertFalse(jackhammer3.getToolCharge().isHasWeekendCharge());
 
@@ -130,7 +133,7 @@ class ChargesCalculatorTest {
         ChargesCalculator.calculate(rentedItem6, jackhammer4);
         assertNotNull(jackhammer4.getToolCharge());
 
-        assertTrue(Double.compare(jackhammer4.getToolCharge().getDailyCharge(), 2.99) == 0);
+        assertTrue(jackhammer4.getToolCharge().getDailyCharge().compareTo(new BigDecimal("2.99")) == 0);
         assertTrue(jackhammer4.getToolCharge().isHasWeekdayCharge());
         assertFalse(jackhammer4.getToolCharge().isHasWeekendCharge());
 

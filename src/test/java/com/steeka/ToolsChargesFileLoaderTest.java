@@ -4,6 +4,8 @@ import com.steeka.io.ToolsChargesFileLoader;
 import com.steeka.model.ToolCharge;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ToolsChargesFileLoaderTest {
@@ -20,13 +22,13 @@ class ToolsChargesFileLoaderTest {
 
         String[] chargesRowData2 = {"Chainsaw", "$1.49", "Yes", "No", "Yes"};
         ToolCharge charge2 = tcfl.createToolChargeFromFileDataRow(chargesRowData2);
-        assertEquals(charge2.isHasWeekdayCharge(),true);
-        assertEquals(charge2.isHasWeekendCharge(),false);
-        assertEquals(charge2.isHasHolidayCharge(),true);
+        assertEquals(true, charge2.isHasWeekdayCharge());
+        assertEquals(false, charge2.isHasWeekendCharge());
+        assertEquals(true, charge2.isHasHolidayCharge());
 
         String[] chargesRowData3 = {"Jackhammer", "$2.99", "Yes", "No", "No"};
         ToolCharge charge3 = tcfl.createToolChargeFromFileDataRow(chargesRowData3);
-        assertEquals(2.99, charge3.getDailyCharge());
+        assertTrue(new BigDecimal("2.99").compareTo(charge3.getDailyCharge())==0);
 
     }
 }

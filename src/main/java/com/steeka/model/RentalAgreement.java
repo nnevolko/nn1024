@@ -1,5 +1,7 @@
 package com.steeka.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -42,7 +44,7 @@ public class RentalAgreement {
                     formatCurrency(rentalItem.getCharge().totalBeforeDiscounts, currencyFormatter)));
             receipt.append(String.format("%-20s %d%%\n", "Discount percent:", rentalItem.getDiscount()));
             receipt.append(String.format("%-20s %s\n", "Discount amount:",
-                    formatCurrency(rentalItem.getCharge().getTotalDiscount(), currencyFormatter)));
+                    formatCurrency(rentalItem.getCharge().getDiscountedAmount(), currencyFormatter)));
             receipt.append(String.format("%-20s %s\n", "Final charge:",
                     formatCurrency(rentalItem.getCharge().getFinalTotal(), currencyFormatter)));
             receipt.append("_______________________________________________________________________");
@@ -54,6 +56,10 @@ public class RentalAgreement {
 
     public static String formatCurrency(double amount, NumberFormat currencyFormatter) {
         return currencyFormatter.format(amount);
+    }
+
+    public static String formatCurrency(BigDecimal amount, NumberFormat currencyFormatter) {
+        return currencyFormatter.format(amount.setScale(2, RoundingMode.HALF_UP));
     }
 
     public static String formatDate(LocalDate date, DateTimeFormatter dateFormatter) {

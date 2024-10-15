@@ -7,6 +7,7 @@ import com.steeka.model.Tool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -51,14 +52,17 @@ public class ChargesCalculator {
 
         logger.info("Total charged days: " + newCharge.getDaysCharged());
 
-        newCharge.setTotalBeforeDiscounts(newCharge.getDaysCharged() * tool.getToolCharge().getDailyCharge());
+        newCharge.setTotalBeforeDiscounts(tool.getToolCharge().getDailyCharge().multiply(BigDecimal.valueOf(newCharge.getDaysCharged())));
         logger.info("Pre-discount charge: " + newCharge.getTotalBeforeDiscounts());
 
-        newCharge.setTotalDiscount(rentalItem.getDiscount() > 0 ? newCharge.getTotalBeforeDiscounts() * rentalItem.getDiscount() / 100 : 0);
-        logger.info("Discount percent: " + rentalItem.getDiscount());
-        logger.info("Discount amount: " + newCharge.getTotalDiscount());
+        BigDecimal discountedAmmount = rentalItem.getDiscount() > 0
+                            ? newCharge.getTotalBeforeDiscounts()
+                                        .multiply(BigDecimal.valueOf(rentalItem.getDiscount()).divide(BigDecimal.valueOf(100)))
+                            : BigDecimal.ZERO;
 
-        newCharge.setFinalTotal(newCharge.getTotalBeforeDiscounts() - newCharge.getTotalDiscount());
+        newCharge.setDiscountedAmount(discountedAmmount);
+
+        newCharge.setFinalTotal(newCharge.getTotalBeforeDiscounts().subtract(newCharge.getDiscountedAmount()));
         logger.info("Discount amount: " + newCharge.getFinalTotal());
 
         System.out.println("Total charge is: "+ newCharge);

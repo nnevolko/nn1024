@@ -3,6 +3,7 @@ package com.steeka;
 import com.steeka.model.RentalAgreement;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +38,7 @@ class RentalAgreementTest {
     @Test
     public void formatCurrencyTest(){
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
-        double amount = 9999.99;
+        BigDecimal amount = new BigDecimal("9999.99");
         Optional<String> result = Optional.ofNullable(RentalAgreement.formatCurrency(amount, currencyFormatter));
         assertTrue(result.isPresent());
         assertEquals("$9,999.99", result.get());

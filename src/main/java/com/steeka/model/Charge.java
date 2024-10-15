@@ -1,13 +1,14 @@
 package com.steeka.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Charge {
 
-    double totalBeforeDiscounts;
-    double totalDiscount;
+    BigDecimal totalBeforeDiscounts;
+    BigDecimal discountedAmount;
     int daysCharged;
-    double finalTotal;
+    BigDecimal finalTotal;
 
     public Charge() {
         this.daysCharged = 0;
@@ -25,27 +26,27 @@ public class Charge {
         this.daysCharged = daysCharged;
     }
 
-    public double getFinalTotal() {
+    public BigDecimal getFinalTotal() {
         return finalTotal;
     }
 
-    public void setFinalTotal(double finalTotal) {
+    public void setFinalTotal(BigDecimal finalTotal) {
         this.finalTotal = finalTotal;
     }
 
-    public double getTotalDiscount() {
-        return totalDiscount;
+    public BigDecimal getDiscountedAmount() {
+        return discountedAmount;
     }
 
-    public void setTotalDiscount(double totalDiscount) {
-        this.totalDiscount = totalDiscount;
+    public void setDiscountedAmount(BigDecimal discountedAmount) {
+        this.discountedAmount = discountedAmount;
     }
 
-    public double getTotalBeforeDiscounts() {
+    public BigDecimal getTotalBeforeDiscounts() {
         return totalBeforeDiscounts;
     }
 
-    public void setTotalBeforeDiscounts(double totalBeforeDiscounts) {
+    public void setTotalBeforeDiscounts(BigDecimal totalBeforeDiscounts) {
         this.totalBeforeDiscounts = totalBeforeDiscounts;
     }
 
@@ -54,19 +55,19 @@ public class Charge {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Charge charge = (Charge) o;
-        return Double.compare(totalBeforeDiscounts, charge.totalBeforeDiscounts) == 0 && Double.compare(totalDiscount, charge.totalDiscount) == 0 && daysCharged == charge.daysCharged && Double.compare(finalTotal, charge.finalTotal) == 0;
+        return daysCharged == charge.daysCharged && Objects.equals(totalBeforeDiscounts, charge.totalBeforeDiscounts) && Objects.equals(discountedAmount, charge.discountedAmount) && Objects.equals(finalTotal, charge.finalTotal);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(totalBeforeDiscounts, totalDiscount, daysCharged, finalTotal);
+        return Objects.hash(totalBeforeDiscounts, discountedAmount, daysCharged, finalTotal);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Charge{");
         sb.append("totalBeforeDiscounts=").append(totalBeforeDiscounts);
-        sb.append(", totalDiscount=").append(totalDiscount);
+        sb.append(", discountedAmount=").append(discountedAmount);
         sb.append(", daysCharged=").append(daysCharged);
         sb.append(", finalTotal=").append(finalTotal);
         sb.append('}');

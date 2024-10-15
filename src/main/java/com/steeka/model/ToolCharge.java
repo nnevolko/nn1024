@@ -1,12 +1,13 @@
 package com.steeka.model;
 
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class ToolCharge {
 
     private String toolType;
-    private double dailyCharge;
+    private BigDecimal dailyCharge;
     private boolean hasWeekdayCharge;
     private boolean hasWeekendCharge;
     private boolean hasHolidayCharge;
@@ -17,7 +18,7 @@ public class ToolCharge {
         this.hasHolidayCharge = false;
     }
 
-    public ToolCharge(String toolType, double dailyCharge, boolean hasWeekdayCharge, boolean hasWeekendCharge, boolean hasHolidayCharge) {
+    public ToolCharge(String toolType, BigDecimal dailyCharge, boolean hasWeekdayCharge, boolean hasWeekendCharge, boolean hasHolidayCharge) {
         this.toolType = toolType;
         this.dailyCharge = dailyCharge;
         this.hasWeekdayCharge = hasWeekdayCharge;
@@ -43,11 +44,11 @@ public class ToolCharge {
         this.toolType = toolType;
     }
 
-    public double getDailyCharge() {
+    public BigDecimal getDailyCharge() {
         return dailyCharge;
     }
 
-    public void setDailyCharge(double dailyCharge) {
+    public void setDailyCharge(BigDecimal dailyCharge) {
         this.dailyCharge = dailyCharge;
     }
 
@@ -80,7 +81,7 @@ public class ToolCharge {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ToolCharge that = (ToolCharge) o;
-        return Double.compare(dailyCharge, that.dailyCharge) == 0 && hasWeekdayCharge == that.hasWeekdayCharge && hasWeekendCharge == that.hasWeekendCharge && hasHolidayCharge == that.hasHolidayCharge && Objects.equals(toolType, that.toolType);
+        return hasWeekdayCharge == that.hasWeekdayCharge && hasWeekendCharge == that.hasWeekendCharge && hasHolidayCharge == that.hasHolidayCharge && Objects.equals(toolType, that.toolType) && Objects.equals(dailyCharge, that.dailyCharge);
     }
 
     @Override
