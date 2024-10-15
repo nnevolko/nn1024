@@ -5,10 +5,15 @@ public class Tool {
     private String code;
     private String type;
     private String brand;
-    private String name;
 
     private ToolCharge toolCharge;
 
+    public Tool(){}
+    public Tool(String code, String type, String brand){
+        this.code = code;
+        this.type = type;
+        this.brand= brand;
+    }
     public String getCode() {
         return code;
     }
@@ -33,14 +38,6 @@ public class Tool {
         this.brand = brand;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setToolCharge(ToolCharge toolCharge) {
         this.toolCharge = toolCharge;
     }
@@ -53,7 +50,6 @@ public class Tool {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Tool{");
         sb.append("code='").append(code).append('\'');
-        sb.append(", name='").append(name).append('\'');
         sb.append(", brand='").append(brand).append('\'');
         sb.append(", type='").append(type).append('\'');
         sb.append('}');

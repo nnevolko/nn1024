@@ -10,13 +10,13 @@ public class ToolsNameToCodeMapper {
     private Map<String, String> toolNameToCodeMapper;
 
     public ToolsNameToCodeMapper(ToolsRegistry tools) {
-        map(tools.getToolsRegistry());
+        map(tools);
     }
 
-    public void map(Map<String, Tool> tools) {
-        toolNameToCodeMapper = tools.entrySet().stream()
+    public void map(ToolsRegistry tools) {
+        toolNameToCodeMapper = tools.getToolsRegistry().entrySet().stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getValue().getName(),
+                        entry -> entry.getValue().getType(),
                         entry -> entry.getValue().getCode(),
                         (existing, replacement) -> existing
                 ));
