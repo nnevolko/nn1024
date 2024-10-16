@@ -37,8 +37,6 @@ public class ToolsChargesFileLoader implements FileLoader<ToolsChargeRegistry> {
         ToolCharge charges = new ToolCharge();
         charges.setToolType(dataRow[0].trim());
         //use currency formatter to load amount wiht the currency indicator
-        System.out.println("Value is: " + dataRow[1].trim().substring(1));
-
         charges.setDailyCharge(new BigDecimal(dataRow[1].trim().replace(DOLLAR_SIGN, "")));
         boolean hasWeekdayCharge = dataRow[2].trim().equalsIgnoreCase(YES);
         boolean hasWeekendCharge = dataRow[3].trim().equalsIgnoreCase(YES);

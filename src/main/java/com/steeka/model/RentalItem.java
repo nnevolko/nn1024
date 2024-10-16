@@ -35,7 +35,6 @@ public class RentalItem {
         this.daysRented = Integer.parseInt(daysRented.trim());
         this.discount = Integer.parseInt(discount.replace("%", ""));
 
-        //TODO check this. Whole numbers
         if (this.discount < 0 || this.discount > 100) {
             throw new ToolsRentalArgumentException("Rental discount cannot be greater than 100%. Please check with the Clerk.");
         }

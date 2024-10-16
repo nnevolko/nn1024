@@ -47,9 +47,8 @@ class CheckoutTest {
                 toolToUpdate.setToolCharge(charge);
             }
         });
-        toolsRegistry.getToolsRegistry().entrySet().stream()
-                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
-
+       /* toolsRegistry.getToolsRegistry().entrySet().stream()
+                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));*/
 
     }
 
@@ -69,7 +68,8 @@ class CheckoutTest {
             ChargesCalculator.calculate(rentedItem1, jackhammer1);
         });
         assertEquals("Rental discount cannot be greater than 100%. Please check with the Clerk.", exception1.getMessage());
-
+        System.out.println("\"JAKR\", \"9/3/15\", \"5\", \"101%\"");
+        System.out.println("Caught exception: " + exception1.getMessage()+"\n");
         // Test 2 ----------------------------------
 
         Customer customer2 = new Customer("Nika Ne");

@@ -42,9 +42,6 @@ class ChargesCalculatorTest {
                 toolToUpdate.setToolCharge(charge);
             }
         });
-        toolsRegistry.getToolsRegistry().entrySet().stream()
-                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
-
 
     }
 

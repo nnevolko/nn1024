@@ -21,6 +21,7 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+
         <!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -28,12 +29,13 @@
             <version>2.0.7</version>
         </dependency>
 
-        <!-- Logback implementation -->
+        <!-- Logback implementation (version compatible with SLF4J 2.x) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.11</version>
+            <version>1.4.11</version> <!-- Updated to be compatible with SLF4J 2.x -->
         </dependency>
+
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
