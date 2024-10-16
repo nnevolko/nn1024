@@ -12,6 +12,9 @@ public class Charge {
 
     public Charge() {
         this.daysCharged = 0;
+        this.totalBeforeDiscounts=BigDecimal.ZERO;
+        this.discountedAmount = BigDecimal.ZERO;
+        this.finalTotal=BigDecimal.ZERO;
     }
 
     public int getDaysCharged() {

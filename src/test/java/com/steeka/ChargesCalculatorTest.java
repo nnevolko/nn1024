@@ -75,11 +75,11 @@ class ChargesCalculatorTest {
         assertTrue(ladder1.getToolCharge().getDailyCharge().compareTo(new BigDecimal("1.99")) == 0);
         assertTrue(ladder1.getToolCharge().isHasWeekdayCharge());
         assertTrue(ladder1.getToolCharge().isHasWeekendCharge());
-        assertTrue(rentedItem2.getCharge().getTotalBeforeDiscounts().compareTo(new BigDecimal("5.97")) == 0);
+        assertTrue(rentedItem2.getCharge().getTotalBeforeDiscounts().compareTo(new BigDecimal("3.98")) == 0);
 
-        assertTrue(new BigDecimal("0.597").compareTo(rentedItem2.getCharge().getDiscountedAmount()) == 0); //0.597)
-        assertEquals(rentedItem2.getCharge().getDaysCharged(), 3);
-        assertTrue(new BigDecimal("5.373").compareTo(rentedItem2.getCharge().getFinalTotal()) == 0);
+        assertTrue(new BigDecimal("0.398").compareTo(rentedItem2.getCharge().getDiscountedAmount()) == 0); //0.597)
+        assertEquals(rentedItem2.getCharge().getDaysCharged(), 2);
+        assertTrue(new BigDecimal("3.582").compareTo(rentedItem2.getCharge().getFinalTotal()) == 0);
 
         // Test 3 ----------------------------------
         RentalItem rentedItem3 = new RentalItem("CHNS", "7/2/15", "5", "25%");
@@ -116,6 +116,16 @@ class ChargesCalculatorTest {
         Tool jackhammer4 = toolsRegistry.get(rentedItem6.getToolCode());
         ChargesCalculator.calculate(rentedItem6, jackhammer4);
         assertNotNull(jackhammer4.getToolCharge());
+        //7/2/20 is Thursday                                    ->7/2 start charging from next day
+        //7/3 is a Holiday, 7/4 is observed on Friday           ->7/3 is a Holiday
+        //7/4 Holiday an                                        ->7/4 is Weekend
+        //7/5 is Sunday                                         -> 7/5 is Weekend
+        //Return date 7/6/2020 Monday. There should only be one day that the customer is chared for.
+        assertTrue(rentedItem6.getCharge().getTotalBeforeDiscounts().compareTo(new BigDecimal("2.99")) == 0);
+
+        assertTrue(new BigDecimal("1.495").compareTo(rentedItem6.getCharge().getDiscountedAmount()) == 0); //0.597)
+        assertEquals(rentedItem6.getCharge().getDaysCharged(), 1);
+        assertTrue(new BigDecimal("1.495").compareTo(rentedItem6.getCharge().getFinalTotal()) == 0);
 
         assertTrue(jackhammer4.getToolCharge().getDailyCharge().compareTo(new BigDecimal("2.99")) == 0);
         assertTrue(jackhammer4.getToolCharge().isHasWeekdayCharge());

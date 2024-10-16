@@ -39,13 +39,17 @@ public class ChargesCalculator {
         logger.debug("Return date: " + returnDate);
 
         for (LocalDate date = startRentalDate; !date.isAfter(returnDate); date = date.plusDays(1)) {
-            //check if weekend
-            if (isWeekend(date) && tool.getToolCharge().isHasWeekendCharge()) {
+            //Ladder      $1.99   Yes     Yes     No
+           // Chainsaw    $1.49   Yes     No      Yes
+            //Jackhammer  $2.99   Yes     No      No
+            //
+            if (isHoliday(date) && tool.getToolCharge().isHasHolidayCharge()){
                 newCharge.addOneToDaysCharged();
-            } else if (isHoliday(date) && tool.getToolCharge().isHasHolidayCharge()) {
+            } else if(isWeekend(date) && tool.getToolCharge().isHasWeekendCharge()){
                 newCharge.addOneToDaysCharged();
-            } else
+            } else if(!(isHoliday(date) || isWeekend(date)) && tool.getToolCharge().isHasWeekdayCharge()){
                 newCharge.addOneToDaysCharged();
+            }
         }
 
         logger.info("Total days charged: " + newCharge.getDaysCharged());

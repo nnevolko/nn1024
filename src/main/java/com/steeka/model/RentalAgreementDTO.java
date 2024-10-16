@@ -167,6 +167,7 @@ public class RentalAgreementDTO {
         receipt.append(String.format("%-20s %s\n", "Check out date:", formatDate(checkoutDate, Formatter.DATE_CONVERTER)));
         receipt.append(String.format("%-20s %s\n", "Due date:", formatDate(this.returnDate, Formatter.DATE_CONVERTER)));
         receipt.append(String.format("%-20s %s\n", "Daily rental charge:", formatCurrency(this.dailyCharge, Formatter.CURRENCY_CONVERTER )));
+        receipt.append(String.format("%-20s %s\n", "Charge days:", daysCharged));
         receipt.append(String.format("%-20s %s\n", "Pre-discount charge:", formatCurrency(this.totalBeforeDiscounts, Formatter.CURRENCY_CONVERTER)));
         receipt.append(String.format("%-20s %d%%\n", "Discount percent:", this.discount));
         receipt.append(String.format("%-20s %s\n", "Discount amount:", formatCurrency(this.discountedAmount, Formatter.CURRENCY_CONVERTER)));

@@ -92,11 +92,11 @@ class CheckoutTest {
         assertEquals(10, agreementDTO2.getDiscount());
         assertEquals(3, agreementDTO2.getDaysRented());
 
-        assertTrue(new BigDecimal("5.97").compareTo(agreementDTO2.getTotalBeforeDiscounts()) == 0);
-        assertTrue(new BigDecimal("0.597").compareTo(agreementDTO2.getDiscountedAmount()) == 0); //0.597)
+        assertTrue(new BigDecimal("3.98").compareTo(agreementDTO2.getTotalBeforeDiscounts()) == 0);
+        assertTrue(new BigDecimal("0.398").compareTo(agreementDTO2.getDiscountedAmount()) == 0); //0.597)
 
-        assertTrue(new BigDecimal("5.373").compareTo(agreementDTO2.getFinalTotal()) == 0);
-        assertEquals (agreementDTO2.getDaysCharged(), 3);
+        assertTrue(new BigDecimal("3.582").compareTo(agreementDTO2.getFinalTotal()) == 0);
+        assertEquals (agreementDTO2.getDaysCharged(), 2);
 
 
         // Test 3 ----------------------------------
@@ -120,11 +120,11 @@ class CheckoutTest {
         assertEquals(25, agreementDTO3.getDiscount());
         assertEquals(5, agreementDTO3.getDaysRented());
 
-        assertTrue(new BigDecimal("7.45").compareTo(agreementDTO3.getTotalBeforeDiscounts()) == 0);
-        assertTrue(new BigDecimal("1.8625").compareTo(agreementDTO3.getDiscountedAmount()) == 0); //0.597)
+        assertTrue(new BigDecimal("4.47").compareTo(agreementDTO3.getTotalBeforeDiscounts()) == 0);
+        assertTrue(new BigDecimal("1.1175").compareTo(agreementDTO3.getDiscountedAmount()) == 0); //0.597)
 
-        assertTrue(new BigDecimal("5.5875").compareTo(agreementDTO3.getFinalTotal()) == 0);
-        assertEquals (agreementDTO3.getDaysCharged(), 5);
+        assertTrue(new BigDecimal("3.3525").compareTo(agreementDTO3.getFinalTotal()) == 0);
+        assertEquals (agreementDTO3.getDaysCharged(), 3);
 
         // Test 4 ----------------------------------
         Customer customer4 = new Customer("Customer Four");
@@ -147,11 +147,11 @@ class CheckoutTest {
         assertEquals(0, agreementDTO4.getDiscount());
         assertEquals(6, agreementDTO4.getDaysRented());
 
-        assertTrue(new BigDecimal("17.94").compareTo(agreementDTO4.getTotalBeforeDiscounts()) == 0);
+        assertTrue(new BigDecimal("8.97").compareTo(agreementDTO4.getTotalBeforeDiscounts()) == 0);
         assertTrue(new BigDecimal("0").compareTo(agreementDTO4.getDiscountedAmount()) == 0); //0.597)
 
-        assertTrue(new BigDecimal("17.94").compareTo(agreementDTO4.getFinalTotal()) == 0);
-        assertEquals (agreementDTO4.getDaysCharged(), 6);
+        assertTrue(new BigDecimal("8.97").compareTo(agreementDTO4.getFinalTotal()) == 0);
+        assertEquals (agreementDTO4.getDaysCharged(), 3);
 
         // Test 5 ----------------------------------
         Customer customer5 = new Customer("Customer Five");
@@ -174,11 +174,11 @@ class CheckoutTest {
         assertEquals(0, agreementDTO5.getDiscount());
         assertEquals(9, agreementDTO5.getDaysRented());
 
-        assertTrue(new BigDecimal("26.91").compareTo(agreementDTO5.getTotalBeforeDiscounts()) == 0);
+        assertTrue(new BigDecimal("14.95").compareTo(agreementDTO5.getTotalBeforeDiscounts()) == 0);
         assertTrue(new BigDecimal("0").compareTo(agreementDTO5.getDiscountedAmount()) == 0); //0.597)
 
-        assertTrue(new BigDecimal("26.91").compareTo(agreementDTO5.getFinalTotal()) == 0);
-        assertEquals (agreementDTO5.getDaysCharged(), 9);
+        assertTrue(new BigDecimal("14.95").compareTo(agreementDTO5.getFinalTotal()) == 0);
+        assertEquals (agreementDTO5.getDaysCharged(), 5);
 
 
 
@@ -209,11 +209,11 @@ class CheckoutTest {
         assertEquals(50, agreementDTO6.getDiscount());
         assertEquals(4, agreementDTO6.getDaysRented());
 
-        assertTrue(new BigDecimal("11.96").compareTo(agreementDTO6.getTotalBeforeDiscounts()) == 0);
-        assertTrue(new BigDecimal("5.980").compareTo(agreementDTO6.getDiscountedAmount()) == 0); //0.597)
+        assertTrue(new BigDecimal("2.99").compareTo(agreementDTO6.getTotalBeforeDiscounts()) == 0);
+        assertTrue(new BigDecimal("1.495").compareTo(agreementDTO6.getDiscountedAmount()) == 0); //0.597)
 
-        assertTrue(new BigDecimal("5.980").compareTo(agreementDTO6.getFinalTotal()) == 0);
-        assertEquals (agreementDTO6.getDaysCharged(), 4);
+        assertTrue(new BigDecimal("1.495").compareTo(agreementDTO6.getFinalTotal()) == 0);
+        assertEquals (agreementDTO6.getDaysCharged(), 1);
 
     }
 
