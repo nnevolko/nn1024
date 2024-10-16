@@ -5,31 +5,26 @@ import java.util.List;
 
 public class RentalCart {
 
-    private List<RentalItem> rentedTools = new ArrayList<>();
+    //TODO ideally this method would contain a list of rental items
+    // but for current requirements I refactored to include only one item.
+    private RentalItem rentalItem;
 
-    public RentalCart() {
+    public RentalCart(RentalItem rentalItem) {
+        this.rentalItem = rentalItem;
     }
 
-    public void add(RentalItem item) {
-        rentedTools.add(item);
+    public RentalItem getRentalItem() {
+        return rentalItem;
     }
 
-    public void remove(RentalItem item) {
-        rentedTools.remove(item);
-    }
-
-    public void clear() {
-        rentedTools.clear();
-    }
-
-    public List<RentalItem> getRentedTools() {
-        return rentedTools;
+    public void setRentalItem(RentalItem rentalItem) {
+        this.rentalItem = rentalItem;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("RentalCart{");
-        sb.append("rentedTools=").append(rentedTools);
+        sb.append("rentalItem=").append(rentalItem);
         sb.append('}');
         return sb.toString();
     }

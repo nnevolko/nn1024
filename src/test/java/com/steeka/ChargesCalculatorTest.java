@@ -148,6 +148,8 @@ class ChargesCalculatorTest {
 
         assertTrue(ChargesCalculator.isWeekend(LocalDate.of(2024, 10, 13)));
         assertFalse(ChargesCalculator.isWeekend(LocalDate.of(2024, 10, 15)));
+        assertTrue(ChargesCalculator.isWeekend(LocalDate.of(2020, 7, 4)));
+        assertTrue(ChargesCalculator.isWeekend(LocalDate.of(2020, 7, 5)));
     }
 
     @Test
@@ -158,6 +160,9 @@ class ChargesCalculatorTest {
 
         LocalDate date2 = LocalDate.of(2024, 10, 15);
         assertFalse(ChargesCalculator.isHoliday(date2));
+
+        LocalDate date3 = LocalDate.of(2020, 07, 03);
+        assertTrue(ChargesCalculator.isHoliday(date3));
 
     }
 }

@@ -34,18 +34,17 @@ public class ToolsRentalMain {
 
         Customer customer1 = new Customer("Nika Ne");
         RentalCart cart = populateSampleShoppingCart(customer1);
-        Checkout newCheckout = new Checkout(customer1, cart);
-        newCheckout.processCheckOut(toolsRegistry);
-        RentalAgreement agreement = newCheckout.generateRentalAgreement();
-        agreement.printRentalAgreement(toolsRegistry);
+        Checkout newCheckout = new Checkout(customer1, cart, toolsRegistry);
+        newCheckout.processCheckOut();
+        RentalAgreementDTO agreement = newCheckout.generateRentalAgreement();
+        agreement.printRentalAgreement();
 
         logger.info("Exiting Tools rental application.");
     }
 
     public static RentalCart populateSampleShoppingCart(Customer customer) {
-        RentalItem ri = new RentalItem("JAKR", "10/11/24", "5", "20%");
-        RentalCart shoppingCart = new RentalCart();
-        shoppingCart.add(ri);
+        RentalItem rentalItem = new RentalItem("JAKR", "10/11/24", "5", "20%");
+        RentalCart shoppingCart = new RentalCart(rentalItem);
         return shoppingCart;
     }
 

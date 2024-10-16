@@ -24,8 +24,9 @@ public class RentalItem {
 
     private String toolCode;
     private LocalDate checkoutDate;
-    private int discount;
     private int daysRented;
+    private int discount;
+
     Charge charge;
 
     public RentalItem(String toolCode, String checkoutDate, String daysRented, String discount) {

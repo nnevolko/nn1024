@@ -17,7 +17,6 @@ class RentalItemTest {
         LocalDate date =  ri.getCheckoutDate();
         //uuuu-MM-dd
         assertEquals(date.toString(), "2015-09-03");
-       //
 
     }
 }
